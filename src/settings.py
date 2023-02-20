@@ -9,6 +9,10 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = True
 
+DEBUG_OPTIONS = [True, False]
+
+DEBUG = DEBUG_OPTIONS[int(os.environ.get("DEBUG_STATUS"))]
+
 ALLOWED_HOSTS = []
 
 
