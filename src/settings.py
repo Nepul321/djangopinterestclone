@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'storages',
     'rest_framework',
     'base',
+    'pins',
 ]
 
 MIDDLEWARE = [
