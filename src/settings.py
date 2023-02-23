@@ -120,4 +120,23 @@ AWS_S3_USE_SSL=True
 AWS_QUERYSTRING_AUTH = False
 AWS_STORAGE_BUCKET_NAME=LINODE_BUCKET_NAME
 
+DEFAULT_RENDERER_CLASSES = [
+       'rest_framework.renderers.JSONRenderer',
+]
+
+DEFAULT_AUTHENTICATION_CLASSES = [
+    'rest_framework.authentication.SessionAuthentication',
+]
+
+if DEBUG:
+    DEFAULT_RENDERER_CLASSES += [
+        'rest_framework.renderers.BrowsableAPIRenderer', 
+        
+    ]
+
+REST_FRAMEWORK = {
+   "DEFAULT_AUTHENTICATION_CLASSES" : DEFAULT_AUTHENTICATION_CLASSES,
+   "DEFAULT_RENDERER_CLASSES" : DEFAULT_RENDERER_CLASSES
+}
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
