@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import ImagePin, PinView
 
-# Register your models here.
+admin.site.register(ImagePin)
+admin.site.register(PinView)
