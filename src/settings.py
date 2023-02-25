@@ -16,8 +16,8 @@ DEBUG = DEBUG_OPTIONS[int(os.environ.get("DEBUG_STATUS"))]
 ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'accounts-login'
-LOGIN_URL = 'accounts-login'
+LOGOUT_REDIRECT_URL = 'login-view'
+LOGIN_URL = 'login-view'
 
 
 INSTALLED_APPS = [
