@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Django Pinterest Clone - Login
+{% endblock title %}
+
+{% block content %}
+<div class="container-fluid my-5">
+    <div class="container">
+        <h1>Login</h1>
+        <hr />
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary">Login</button>
+        </form>
+        <div class="my-5">
+            <p>Forgot Password ? <a href="">Password Reset</a></p>
+            <p>Don't have an account ? <a href="">Sign Up</a></p>
+        </div>
+    </div>
+</div>
+<br />
+{% endblock content %}
+
+{% block js %}
+<script>
+    const password_input = document.getElementById("id_password");
+    const username_input = document.getElementById("id_username");
+
+    function styleElements() {
+        password_input.classList.add("form-control");
+        username_input.classList.add("form-control");
+    }
+
+    styleElements();
+</script>
+{% endblock js %}
