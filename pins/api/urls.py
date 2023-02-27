@@ -1,8 +1,8 @@
 from django.urls import path
 from .views import (
-    PinsListView
+    ImagePinsListView
 )
 
 urlpatterns = [
-    path('', PinsListView, name="pins-list"),
+    path('images/', ImagePinsListView, name="pins-list"),
 ]
