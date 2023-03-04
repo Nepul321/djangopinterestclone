@@ -9,3 +9,17 @@ def ImagePinsListView(request, *args, **kwargs):
     serializer = ImagePinSerializer(imagepins, many=True)
     data  = serializer.data
     return Response(data, status=200)
+
+@api_view(['GET'])
+def ImagePinDetailView(request, id, *args, **kwargs):
+    user = request.user
+    qs = ImagePin.objects.filter(id=id)
+    if not qs:
+        return Response({"detail" : "Not found"}, status=404)
+    obj = qs.first()
+    if obj.is_private == True and user != obj.user:
+        return Response({"detail" : "You can't view this post"}, status=403)
+    serializer = ImagePinSerializer(obj)
+    data = serializer.data
+    
+    return Response(data, status=200)
