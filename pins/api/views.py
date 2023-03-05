@@ -1,6 +1,10 @@
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from ..models import ImagePin
+from rest_framework.permissions import (
+    IsAuthenticated
+)
+
 from .serializers import ImagePinSerializer
 
 @api_view(['GET'])
@@ -23,3 +27,16 @@ def ImagePinDetailView(request, id, *args, **kwargs):
     data = serializer.data
     
     return Response(data, status=200)
+
+@permission_classes([IsAuthenticated])
+@api_view(['POST'])
+def ImagePinCreateView(request, *args, **kwargs):
+    data = request.data
+    serializer = ImagePinSerializer(data=data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(
+            user=request.user
+        )
+        return Response(serializer.data, status=201)
+    
+    return Response({}, status=401)
