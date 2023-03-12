@@ -55,8 +55,22 @@ def ImagePinUpdateView(request, id, *args, **kwargs):
         serializer = ImagePinSerializer(instance=obj, data=data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            return Response(serializer.data, status=201)
+            return Response(serializer.data, status=200)
         
         return Response({}, status=401)
     
     return Response({"detail" : "You can't edit this pin"}, status=403)
+
+@permission_classes([IsAuthenticated])
+@api_view(['DELETE'])
+def ImagePinDeleteView(request, id, *args, **kwargs):
+    qs = ImagePin.objects.filter(id=id)
+    if not qs:
+        return Response({"detail" : "Image pin not found"}, status=404)
+    obj = qs.first()
+    if obj.user == request.user:
+        obj.delete()
+        return Response({"detail" : "Image pin deleted"}, status=200)
+    
+    return Response({"detail" : "You can't delete this pin"}, status=403)
+
