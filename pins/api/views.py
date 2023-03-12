@@ -40,3 +40,23 @@ def ImagePinCreateView(request, *args, **kwargs):
         return Response(serializer.data, status=201)
     
     return Response({}, status=401)
+
+
+@permission_classes([IsAuthenticated])
+@api_view(['PUT'])
+def ImagePinUpdateView(request, id, *args, **kwargs):
+    qs = ImagePin.objects.filter(id=id)
+    if not qs:
+        return Response({"detail" : "Pin not found"}, status=404)
+    
+    obj = qs.first()
+    if obj.user == request.user:
+        data = request.data
+        serializer = ImagePinSerializer(instance=obj, data=data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=201)
+        
+        return Response({}, status=401)
+    
+    return Response({"detail" : "You can't edit this pin"}, status=403)
